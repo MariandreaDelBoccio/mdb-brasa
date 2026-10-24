@@ -1,0 +1,377 @@
+:root {
+  --char: #1a1612;
+  --ember: #c45c3a;
+  --wax: #f2e6d4;
+  --smoke: #8a8074;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--char);
+  color: var(--wax);
+  font-family: var(--font-sans);
+  line-height: 1.55;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.brasa-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 28px;
+  background: color-mix(in srgb, var(--char) 88%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.brasa-logo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brasa-logo strong {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.brasa-logo span,
+.brasa-header nav a,
+.kicker,
+.note {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+
+.brasa-header nav {
+  display: flex;
+  gap: 20px;
+}
+
+.lang-toggle {
+  display: flex;
+  gap: 4px;
+}
+
+.lang-toggle button {
+  border: 0;
+  background: transparent;
+  color: var(--smoke);
+  padding: 4px 6px;
+}
+
+.lang-toggle button.is-active {
+  color: var(--wax);
+}
+
+.brasa-intro {
+  padding: 40px 28px 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.brasa-intro h1 {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 400;
+  line-height: 0.95;
+  margin: 12px 0 20px;
+}
+
+.lead {
+  max-width: 42ch;
+  color: color-mix(in srgb, var(--wax) 78%, transparent);
+}
+
+.note,
+.drag-hint {
+  margin-top: 16px;
+  max-width: 40ch;
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 13px;
+  color: var(--smoke);
+}
+
+.drag-hint {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border: 1px dashed color-mix(in srgb, var(--wax) 22%, transparent);
+  border-radius: 999px;
+  width: fit-content;
+}
+
+/* Preview + controls side by side — no up/down hunting */
+.brasa-atelier {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 28px;
+  align-items: start;
+  padding: 12px 28px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.brasa-atelier-preview {
+  position: sticky;
+  top: 76px;
+}
+
+.brasa-canvas {
+  height: min(68vh, 620px);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #14110e;
+  cursor: grab;
+  touch-action: none;
+}
+
+.brasa-canvas:active {
+  cursor: grabbing;
+}
+
+.brasa-atelier-controls {
+  padding-bottom: 24px;
+}
+
+.canvas-fallback {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 50% 40%, #ffb070 0%, transparent 18%),
+    linear-gradient(180deg, #2a2420, #14110e);
+}
+
+.canvas-fallback.finish-sand {
+  background:
+    radial-gradient(ellipse 28% 48% at 50% 55%, #efe2cf 0 42%, transparent 43%),
+    #14110e;
+}
+
+.canvas-fallback.finish-char {
+  background:
+    radial-gradient(ellipse 28% 48% at 50% 55%, #2c2622 0 42%, transparent 43%),
+    #14110e;
+}
+
+.canvas-fallback.finish-ember {
+  background:
+    radial-gradient(ellipse 28% 48% at 50% 55%, #c45c3a 0 42%, transparent 43%),
+    #14110e;
+}
+
+.brasa-story,
+.brasa-footer {
+  padding: 72px 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.build-block + .build-block {
+  margin-top: 48px;
+}
+
+.build-block.is-disabled {
+  opacity: 0.45;
+}
+
+.finish-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.finish-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  text-align: left;
+  border: 1px solid color-mix(in srgb, var(--wax) 16%, transparent);
+  background: transparent;
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.finish-card:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.finish-card.is-active {
+  border-color: var(--ember);
+}
+
+.glyph {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border: 1.5px solid color-mix(in srgb, var(--wax) 55%, transparent);
+  border-radius: 4px;
+}
+
+.glyph-mug {
+  border-radius: 6px 6px 4px 4px;
+  border-right-width: 5px;
+}
+
+.glyph-tumbler {
+  border-radius: 3px;
+  height: 32px;
+  width: 20px;
+  margin-inline: 4px;
+}
+
+.glyph-bowl {
+  border-radius: 0 0 50% 50% / 0 0 70% 70%;
+  height: 18px;
+  margin-top: 6px;
+}
+
+.glyph-handle-round {
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  margin: 3px;
+  border-left-color: transparent;
+}
+
+.glyph-handle-square {
+  border-radius: 2px;
+  width: 18px;
+  height: 22px;
+  margin: 3px 5px;
+  border-left-color: transparent;
+}
+
+.glyph-handle-none {
+  border-style: dashed;
+  opacity: 0.55;
+}
+
+.finish-card strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.finish-card small {
+  color: var(--smoke);
+  font-size: 13px;
+}
+
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.swatch-sand { background: #f0e2cc; }
+.swatch-char { background: #2a2420; border: 1px solid #444; }
+.swatch-ember { background: #c45c3a; }
+
+.brasa-story h2 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400;
+  margin: 12px 0 16px;
+}
+
+.brasa-story p {
+  max-width: 48ch;
+  color: color-mix(in srgb, var(--wax) 80%, transparent);
+}
+
+.brasa-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid color-mix(in srgb, var(--wax) 12%, transparent);
+  color: var(--smoke);
+  font-size: 13px;
+}
+
+@media (max-width: 860px) {
+  .brasa-header nav {
+    display: none;
+  }
+
+  .brasa-intro {
+    padding: 24px 20px 12px;
+  }
+
+  .brasa-atelier {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 0 64px;
+  }
+
+  .brasa-atelier-preview {
+    position: sticky;
+    top: 64px;
+    z-index: 4;
+    padding: 0 20px 12px;
+    background: color-mix(in srgb, var(--char) 94%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .brasa-canvas {
+    height: 36vh;
+  }
+
+  .brasa-atelier-preview .drag-hint {
+    display: none;
+  }
+
+  .brasa-atelier-controls {
+    padding: 8px 20px 24px;
+  }
+
+  .finish-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .build-block + .build-block {
+    margin-top: 28px;
+  }
+
+  .finish-card {
+    padding: 14px;
+  }
+
+  .finish-card strong {
+    font-size: 18px;
+  }
+}

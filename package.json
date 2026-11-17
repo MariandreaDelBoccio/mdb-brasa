@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "build:model": "node scripts/build-watch-glb.mjs",
+    "prebuild": "npm run build:model",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",

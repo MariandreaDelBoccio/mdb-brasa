@@ -1,10 +1,10 @@
 :root {
-  --char: #1a1612;
-  --ember: #c45c3a;
-  --wax: #f2e6d4;
-  --smoke: #8a8074;
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "DM Sans", system-ui, sans-serif;
+  --ink: #0c0b0a;
+  --ivory: #f3efe6;
+  --gold: #c4a574;
+  --mute: #8a8178;
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
 }
 
 * {
@@ -18,8 +18,8 @@ html {
 }
 
 body {
-  background: var(--char);
-  color: var(--wax);
+  background: var(--ink);
+  color: var(--ivory);
   font-family: var(--font-sans);
   line-height: 1.55;
 }
@@ -35,7 +35,7 @@ button {
   cursor: pointer;
 }
 
-.brasa-header {
+.meridian-header {
   position: sticky;
   top: 0;
   z-index: 10;
@@ -44,34 +44,34 @@ button {
   justify-content: space-between;
   gap: 24px;
   padding: 18px 28px;
-  background: color-mix(in srgb, var(--char) 88%, transparent);
+  background: color-mix(in srgb, var(--ink) 88%, transparent);
   backdrop-filter: blur(10px);
 }
 
-.brasa-logo {
+.meridian-logo {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.brasa-logo strong {
+.meridian-logo strong {
   font-family: var(--font-display);
   font-size: 28px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.22em;
   font-weight: 500;
 }
 
-.brasa-logo span,
-.brasa-header nav a,
+.meridian-logo span,
+.meridian-header nav a,
 .kicker,
 .note {
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--smoke);
+  color: var(--mute);
 }
 
-.brasa-header nav {
+.meridian-header nav {
   display: flex;
   gap: 20px;
 }
@@ -84,278 +84,274 @@ button {
 .lang-toggle button {
   border: 0;
   background: transparent;
-  color: var(--smoke);
+  color: var(--mute);
   padding: 4px 6px;
 }
 
 .lang-toggle button.is-active {
-  color: var(--wax);
+  color: var(--ivory);
 }
 
-.brasa-intro {
-  padding: 40px 28px 24px;
-  max-width: 1100px;
-  margin: 0 auto;
+.meridian-intro {
+  padding: 0 0 28px;
 }
 
-.brasa-intro h1 {
+.meridian-intro h1 {
   font-family: var(--font-display);
-  font-size: clamp(48px, 8vw, 96px);
+  font-size: clamp(44px, 5.2vw, 76px);
   font-weight: 400;
   line-height: 0.95;
   margin: 12px 0 20px;
+  letter-spacing: 0.02em;
 }
 
 .lead {
-  max-width: 42ch;
-  color: color-mix(in srgb, var(--wax) 78%, transparent);
+  max-width: 44ch;
+  color: color-mix(in srgb, var(--ivory) 78%, transparent);
 }
 
 .note,
 .drag-hint {
   margin-top: 16px;
-  max-width: 40ch;
+  max-width: 42ch;
   line-height: 1.5;
   text-transform: none;
   letter-spacing: 0.02em;
   font-size: 13px;
-  color: var(--smoke);
+  color: var(--mute);
 }
 
 .drag-hint {
   margin-top: 14px;
   padding: 10px 14px;
-  border: 1px dashed color-mix(in srgb, var(--wax) 22%, transparent);
-  border-radius: 999px;
+  border: 1px dashed color-mix(in srgb, var(--ivory) 18%, transparent);
   width: fit-content;
 }
 
-/* Preview + controls side by side — no up/down hunting */
-.brasa-atelier {
+.meridian-atelier {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   gap: 28px;
   align-items: start;
-  padding: 12px 28px 80px;
+  padding: 36px 28px 80px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.brasa-atelier-preview {
+.meridian-atelier-preview {
   position: sticky;
   top: 76px;
 }
 
-.brasa-canvas {
+.meridian-canvas {
   height: min(68vh, 620px);
-  border-radius: 8px;
   overflow: hidden;
-  background: #14110e;
+  background: #080807;
   cursor: grab;
   touch-action: none;
 }
 
-.brasa-canvas:active {
+.meridian-canvas:active {
   cursor: grabbing;
-}
-
-.brasa-atelier-controls {
-  padding-bottom: 24px;
 }
 
 .canvas-fallback {
   width: 100%;
   height: 100%;
   background:
-    radial-gradient(circle at 50% 40%, #ffb070 0%, transparent 18%),
-    linear-gradient(180deg, #2a2420, #14110e);
-}
-
-.canvas-fallback.finish-sand {
-  background:
-    radial-gradient(ellipse 28% 48% at 50% 55%, #efe2cf 0 42%, transparent 43%),
-    #14110e;
-}
-
-.canvas-fallback.finish-char {
-  background:
-    radial-gradient(ellipse 28% 48% at 50% 55%, #2c2622 0 42%, transparent 43%),
-    #14110e;
-}
-
-.canvas-fallback.finish-ember {
-  background:
-    radial-gradient(ellipse 28% 48% at 50% 55%, #c45c3a 0 42%, transparent 43%),
-    #14110e;
-}
-
-.brasa-story,
-.brasa-footer {
-  padding: 72px 28px;
-  max-width: 1100px;
-  margin: 0 auto;
+    radial-gradient(circle at 50% 48%, #c4a574 0%, transparent 18%),
+    radial-gradient(ellipse 40% 18% at 50% 68%, #5c4030 0 40%, transparent 42%),
+    linear-gradient(180deg, #1a1814, #080807);
 }
 
 .build-block + .build-block {
-  margin-top: 48px;
-}
-
-.build-block.is-disabled {
-  opacity: 0.45;
+  margin-top: 40px;
 }
 
 .finish-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 24px;
+  gap: 14px;
+  margin-top: 20px;
 }
 
 .finish-card {
   display: flex;
-  gap: 14px;
+  gap: 10px;
   align-items: flex-start;
   text-align: left;
-  border: 1px solid color-mix(in srgb, var(--wax) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ivory) 14%, transparent);
   background: transparent;
-  padding: 18px;
-  border-radius: 12px;
+  padding: 14px 12px;
+  min-width: 0;
+  overflow: hidden;
 }
 
-.finish-card:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
+.finish-card > span:last-child {
+  min-width: 0;
+  flex: 1;
 }
 
 .finish-card.is-active {
-  border-color: var(--ember);
-}
-
-.glyph {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  border: 1.5px solid color-mix(in srgb, var(--wax) 55%, transparent);
-  border-radius: 4px;
-}
-
-.glyph-mug {
-  border-radius: 6px 6px 4px 4px;
-  border-right-width: 5px;
-}
-
-.glyph-tumbler {
-  border-radius: 3px;
-  height: 32px;
-  width: 20px;
-  margin-inline: 4px;
-}
-
-.glyph-bowl {
-  border-radius: 0 0 50% 50% / 0 0 70% 70%;
-  height: 18px;
-  margin-top: 6px;
-}
-
-.glyph-handle-round {
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
-  margin: 3px;
-  border-left-color: transparent;
-}
-
-.glyph-handle-square {
-  border-radius: 2px;
-  width: 18px;
-  height: 22px;
-  margin: 3px 5px;
-  border-left-color: transparent;
-}
-
-.glyph-handle-none {
-  border-style: dashed;
-  opacity: 0.55;
+  border-color: var(--gold);
 }
 
 .finish-card strong {
   display: block;
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: clamp(14px, 1.15vw, 18px);
   font-weight: 400;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .finish-card small {
-  color: var(--smoke);
-  font-size: 13px;
+  color: var(--mute);
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .swatch {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
+  width: 26px;
+  height: 26px;
   flex-shrink: 0;
+  border-radius: 50%;
 }
 
-.swatch-sand { background: #f0e2cc; }
-.swatch-char { background: #2a2420; border: 1px solid #444; }
-.swatch-ember { background: #c45c3a; }
+.swatch-case-gold { background: #c4a574; }
+.swatch-case-steel { background: #b8bec8; }
+.swatch-case-noir { background: #2a2a2c; border: 1px solid #555; }
+.swatch-strap-cognac { background: #5c4030; }
+.swatch-strap-black { background: #1a1614; border: 1px solid #444; }
+.swatch-strap-navy { background: #1e2a3a; }
+.swatch-dial-ice { background: #dce6f0; }
+.swatch-dial-champagne { background: #e8dcc8; }
+.swatch-dial-noir { background: #1a1c20; border: 1px solid #444; }
 
-.brasa-story h2 {
+.hotspot {
+  position: relative;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  justify-items: center;
+  color: var(--ivory);
+}
+
+.hotspot-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ivory);
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--gold) 22%, transparent);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.hotspot.is-active .hotspot-dot,
+.hotspot:hover .hotspot-dot {
+  background: var(--gold);
+  transform: scale(1.1);
+}
+
+/* Card floats beside the dot so it never covers the watch face */
+.hotspot-card {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 18px);
+  transform: translateY(-50%);
+  z-index: 5;
+  display: grid;
+  gap: 6px;
+  width: max-content;
+  min-width: 152px;
+  max-width: 188px;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--ink) 96%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  text-align: left;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  box-shadow: 0 8px 24px color-mix(in srgb, #000 45%, transparent);
+}
+
+.hotspot-card-left .hotspot-card {
+  left: auto;
+  right: calc(100% + 18px);
+}
+
+.hotspot-card strong {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.hotspot-card small {
+  font-size: 12px;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--ivory) 75%, transparent);
+}
+
+.meridian-story,
+.meridian-footer {
+  padding: 72px 28px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.meridian-story h2 {
   font-family: var(--font-display);
   font-size: clamp(36px, 5vw, 56px);
   font-weight: 400;
   margin: 12px 0 16px;
 }
 
-.brasa-story p {
+.meridian-story p {
   max-width: 48ch;
-  color: color-mix(in srgb, var(--wax) 80%, transparent);
+  color: color-mix(in srgb, var(--ivory) 80%, transparent);
 }
 
-.brasa-footer {
+.meridian-footer {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  border-top: 1px solid color-mix(in srgb, var(--wax) 12%, transparent);
-  color: var(--smoke);
+  border-top: 1px solid color-mix(in srgb, var(--ivory) 12%, transparent);
+  color: var(--mute);
   font-size: 13px;
 }
 
 @media (max-width: 860px) {
-  .brasa-header nav {
+  .meridian-header nav {
     display: none;
   }
 
-  .brasa-intro {
-    padding: 24px 20px 12px;
-  }
-
-  .brasa-atelier {
+  .meridian-atelier {
     grid-template-columns: 1fr;
     gap: 0;
     padding: 0 0 64px;
   }
 
-  .brasa-atelier-preview {
+  .meridian-atelier-preview {
     position: sticky;
     top: 64px;
     z-index: 4;
     padding: 0 20px 12px;
-    background: color-mix(in srgb, var(--char) 94%, transparent);
+    background: color-mix(in srgb, var(--ink) 94%, transparent);
     backdrop-filter: blur(10px);
   }
 
-  .brasa-canvas {
-    height: 36vh;
+  .meridian-canvas {
+    height: 40vh;
   }
 
-  .brasa-atelier-preview .drag-hint {
+  .meridian-atelier-preview .drag-hint {
     display: none;
   }
 
-  .brasa-atelier-controls {
+  .meridian-atelier-controls {
     padding: 8px 20px 24px;
   }
 
@@ -365,13 +361,5 @@ button {
 
   .build-block + .build-block {
     margin-top: 28px;
-  }
-
-  .finish-card {
-    padding: 14px;
-  }
-
-  .finish-card strong {
-    font-size: 18px;
   }
 }

@@ -1,19 +1,25 @@
 import { Suspense, lazy, useEffect, useState } from "react";
-import type { FinishId, HandleId, ShapeId } from "./components/CeramicScene";
+import type {
+  CaseId,
+  DialId,
+  HotspotId,
+  StrapId,
+} from "./components/WatchScene";
 import { useI18n, type Lang } from "./i18n";
 import { hasWebGL } from "./webgl";
 
-const CeramicScene = lazy(() =>
-  import("./components/CeramicScene").then((m) => ({ default: m.CeramicScene })),
+const WatchScene = lazy(() =>
+  import("./components/WatchScene").then((m) => ({ default: m.WatchScene })),
 );
 
 const langs: Lang[] = ["es", "en"];
 
 function App() {
   const { t, lang, setLang } = useI18n();
-  const [finish, setFinish] = useState<FinishId>("sand");
-  const [shape, setShape] = useState<ShapeId>("mug");
-  const [handle, setHandle] = useState<HandleId>("round");
+  const [caseId, setCaseId] = useState<CaseId>("gold");
+  const [strapId, setStrapId] = useState<StrapId>("cognac");
+  const [dialId, setDialId] = useState<DialId>("ice");
+  const [hotspot, setHotspot] = useState<HotspotId | null>(null);
   const [webgl, setWebgl] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(false);
 
@@ -26,21 +32,15 @@ function App() {
     return () => mq.removeEventListener("change", sync);
   }, []);
 
-  useEffect(() => {
-    if (shape === "bowl" && handle !== "none") setHandle("none");
-  }, [shape, handle]);
-
-  const handleDisabled = shape === "bowl";
-
   return (
-    <div className="brasa">
-      <header className="brasa-header">
-        <a href="/" className="brasa-logo">
+    <div className="meridian">
+      <header className="meridian-header">
+        <a href={import.meta.env.BASE_URL} className="meridian-logo">
           <strong>{t.brand}</strong>
           <span>{t.tagline}</span>
         </a>
         <nav>
-          <a href="#acabado">{t.nav.finish}</a>
+          <a href="#configurar">{t.nav.configure}</a>
           <a href="#historia">{t.nav.story}</a>
         </nav>
         <div className="lang-toggle" role="group">
@@ -57,70 +57,55 @@ function App() {
         </div>
       </header>
 
-      <section className="brasa-intro">
-        <p className="kicker">{t.hero.kicker}</p>
-        <h1>{t.hero.title}</h1>
-        <p className="lead">{t.hero.lead}</p>
-        {reduceMotion ? <p className="note">{t.reduced}</p> : null}
-        {!webgl ? <p className="note">{t.fallback}</p> : null}
-      </section>
-
-      <section className="brasa-atelier" id="acabado">
-        <div className="brasa-atelier-preview">
-          <div className="brasa-canvas" aria-label={t.hero.drag}>
+      <section className="meridian-atelier" id="configurar">
+        <div className="meridian-atelier-preview">
+          <div className="meridian-canvas" aria-label={t.hero.drag}>
             {webgl ? (
               <Suspense fallback={<div className="canvas-fallback" />}>
-                <CeramicScene
-                  finish={finish}
-                  shape={shape}
-                  handle={handle}
+                <WatchScene
+                  caseId={caseId}
+                  strapId={strapId}
+                  dialId={dialId}
+                  hotspot={hotspot}
+                  onHotspot={setHotspot}
+                  lang={lang}
                   reduceMotion={reduceMotion}
                 />
               </Suspense>
             ) : (
-              <div className={`canvas-fallback finish-${finish}`} />
+              <div
+                className={`canvas-fallback case-${caseId} strap-${strapId} dial-${dialId}`}
+              />
             )}
           </div>
           <p className="drag-hint">{t.hero.drag}</p>
         </div>
 
-        <div className="brasa-atelier-controls">
-          <div className="build-block">
-            <p className="kicker">{t.build.shape.label}</p>
-            <div className="finish-grid">
-              {t.build.shape.items.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={
-                    shape === item.id ? "finish-card is-active" : "finish-card"
-                  }
-                  onClick={() => setShape(item.id as ShapeId)}
-                >
-                  <span className={`glyph glyph-${item.id}`} aria-hidden />
-                  <span>
-                    <strong>{item.name}</strong>
-                    <small>{item.note}</small>
-                  </span>
-                </button>
-              ))}
-            </div>
+        <div className="meridian-atelier-controls">
+          <div className="meridian-intro">
+            <p className="kicker">{t.hero.kicker}</p>
+            <h1>{t.hero.title}</h1>
+            <p className="lead">{t.hero.lead}</p>
+            {reduceMotion ? <p className="note">{t.reduced}</p> : null}
+            {!webgl ? <p className="note">{t.fallback}</p> : null}
           </div>
 
-          <div className={`build-block${handleDisabled ? " is-disabled" : ""}`}>
-            <p className="kicker">{t.build.handle.label}</p>
+          <div className="build-block">
+            <p className="kicker">{t.build.case.label}</p>
             <div className="finish-grid">
-              {t.build.handle.items.map((item) => (
+              {t.build.case.items.map((item) => (
                 <button
                   key={item.id}
                   type="button"
                   className={
-                    handle === item.id ? "finish-card is-active" : "finish-card"
+                    caseId === item.id ? "finish-card is-active" : "finish-card"
                   }
-                  disabled={handleDisabled && item.id !== "none"}
-                  onClick={() => setHandle(item.id as HandleId)}
+                  onClick={() => {
+                    setCaseId(item.id as CaseId);
+                    setHotspot("case");
+                  }}
                 >
-                  <span className={`glyph glyph-handle-${item.id}`} aria-hidden />
+                  <span className={`swatch swatch-case-${item.id}`} aria-hidden />
                   <span>
                     <strong>{item.name}</strong>
                     <small>{item.note}</small>
@@ -131,18 +116,46 @@ function App() {
           </div>
 
           <div className="build-block">
-            <p className="kicker">{t.build.finish.label}</p>
+            <p className="kicker">{t.build.strap.label}</p>
             <div className="finish-grid">
-              {t.build.finish.items.map((item) => (
+              {t.build.strap.items.map((item) => (
                 <button
                   key={item.id}
                   type="button"
                   className={
-                    finish === item.id ? "finish-card is-active" : "finish-card"
+                    strapId === item.id ? "finish-card is-active" : "finish-card"
                   }
-                  onClick={() => setFinish(item.id as FinishId)}
+                  onClick={() => {
+                    setStrapId(item.id as StrapId);
+                    setHotspot("strap");
+                  }}
                 >
-                  <span className={`swatch swatch-${item.id}`} aria-hidden />
+                  <span className={`swatch swatch-strap-${item.id}`} aria-hidden />
+                  <span>
+                    <strong>{item.name}</strong>
+                    <small>{item.note}</small>
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="build-block">
+            <p className="kicker">{t.build.dial.label}</p>
+            <div className="finish-grid">
+              {t.build.dial.items.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={
+                    dialId === item.id ? "finish-card is-active" : "finish-card"
+                  }
+                  onClick={() => {
+                    setDialId(item.id as DialId);
+                    setHotspot("dial");
+                  }}
+                >
+                  <span className={`swatch swatch-dial-${item.id}`} aria-hidden />
                   <span>
                     <strong>{item.name}</strong>
                     <small>{item.note}</small>
@@ -154,15 +167,15 @@ function App() {
         </div>
       </section>
 
-      <section className="brasa-story" id="historia">
+      <section className="meridian-story" id="historia">
         <p className="kicker">{t.story.kicker}</p>
         <h2>{t.story.title}</h2>
         <p>{t.story.text}</p>
       </section>
 
-      <footer className="brasa-footer">
+      <footer className="meridian-footer">
         <p>{t.brand}</p>
-        <p>Demo portfolio — m.d.b.</p>
+        <p>Demo portfolio — AUREA</p>
       </footer>
     </div>
   );
